@@ -1,131 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add Menu Item</title>
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Menu Item | FoodZone</title>
 
-    body{
-      background:linear-gradient(135deg,#74ebd5,#ACB6E5);
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:20px;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+  background:linear-gradient(135deg,#74ebd5,#ACB6E5);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  color:#333;
+}
 
-    .box{
-      width:100%;
-      max-width:460px;
-      background:#fff;
-      padding:28px;
-      border-radius:20px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.15);
-    }
+.box{
+  width:100%;
+  max-width:460px;
+  background:#ffffff;
+  padding:28px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
 
-    h2{
-      text-align:center;
-      margin-bottom:20px;
-      font-size:26px;
-      font-weight:600;
-    }
+h2{text-align:center;margin-bottom:20px;font-size:26px;font-weight:600;}
 
-    label{
-      font-size:15px;
-      font-weight:500;
-      color:#333;
-    }
+label{font-size:15px;font-weight:500;color:#333;}
+input{
+  width:100%;
+  margin-top:6px;
+  margin-bottom:18px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  font-size:15px;
+  outline:none;
+  transition:0.2s;
+}
+input:focus{
+  border-color:#4f68ff;
+  box-shadow:0 0 0 3px rgba(79,104,255,0.25);
+}
 
-    input{
-      width:100%;
-      margin-top:6px;
-      margin-bottom:18px;
-      padding:12px;
-      border-radius:12px;
-      border:1px solid #ccc;
-      font-size:15px;
-      outline:none;
-      transition:0.2s;
-    }
+.btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  background:#4f68ff;
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+.btn:hover{background:#3b52d1;}
 
-    input:focus{
-      border-color:#4f68ff;
-      box-shadow:0 0 0 3px rgba(79,104,255,0.25);
-    }
+.back{
+  display:block;
+  margin-top:12px;
+  text-align:center;
+  font-size:14px;
+  color:#444;
+  text-decoration:none;
+}
 
-    .btn{
-      width:100%;
-      padding:12px;
-      border:none;
-      background:#4f68ff;
-      color:#fff;
-      font-size:16px;
-      font-weight:600;
-      border-radius:12px;
-      cursor:pointer;
-      transition:0.2s;
-    }
-
-    .btn:hover{
-      background:#3b52d1;
-    }
-
-    .back{
-      display:block;
-      margin-top:12px;
-      text-align:center;
-      font-size:14px;
-      color:#444;
-      text-decoration:none;
-    }
-  </style>
+/* ================= PROFESSIONAL DARK MODE ================= */
+body.dark{background:linear-gradient(135deg,#0f0f14,#1a1a26);color:#e6e6f0;}
+body.dark .box{background:#161622;box-shadow:0 10px 25px rgba(0,0,0,0.7);}
+body.dark h2,label{color:#ffffff;}
+body.dark input{background:#2a2a3d;color:#fff;border:none;}
+body.dark input::placeholder{color:#9fa0c9;}
+body.dark .btn{background:#6c8cff;color:#fff;}
+body.dark .btn:hover{background:#5570ff;}
+body.dark .back{color:#bdbdd6;}
+body.dark .back:hover{color:#8fa2ff;}
+</style>
 </head>
 <body>
 
-  <div class="box">
-    <h2>Add New Item</h2>
+<div class="box">
+  <h2>Add New Item</h2>
 
-    <label>Item Name</label>
-    <input type="text" placeholder="e.g. Paneer Tikka" id="name" />
+  <label>Item Name</label>
+  <input type="text" placeholder="e.g. Paneer Tikka" id="name" />
 
-    <label>Price (₹)</label>
-    <input type="number" placeholder="e.g. 120" id="price" />
+  <label>Price (₹)</label>
+  <input type="number" placeholder="e.g. 120" id="price" />
 
-    <label>Image URL (optional)</label>
-    <input type="text" placeholder="Paste image link" id="img" />
+  <label>Image URL (optional)</label>
+  <input type="text" placeholder="Paste image link" id="img" />
 
-    <button class="btn" id="addBtn">Add Item</button>
+  <button class="btn" id="addBtn">Add Item</button>
+  <a href="index.html" class="back">⬅ Back to Menu</a>
+</div>
 
-    <a href="restaurant.html" class="back">⬅ Back to Menu</a>
-  </div>
-<script src="restaurant.js"></script>
-  <script>
+<script>
+// ================= ADD ITEM =================
 document.getElementById("addBtn").addEventListener("click", () => {
   const name = document.getElementById("name").value.trim();
   const price = document.getElementById("price").value.trim();
   const img = document.getElementById("img").value.trim();
 
-  if (!name || !price) {
-    alert("Please fill name and price");
-    return;
-  }
+  if(!name || !price){ alert("Please fill name and price"); return; }
 
-  const item = { name, price: Number(price), img };
-
+  const item = {name, price:Number(price), img};
   const old = JSON.parse(localStorage.getItem("menuItems")) || [];
   old.push(item);
   localStorage.setItem("menuItems", JSON.stringify(old));
 
   alert("Item added successfully!");
-  window.location.href = "restaurant.html";
+  window.location.href = "index.html";
 });
+
+// ================= DARK MODE =================
+const toggle = document.createElement("button");
+toggle.className="theme-toggle";
+toggle.innerText="🌙";
+toggle.style.position="fixed";
+toggle.style.top="10px";
+toggle.style.right="10px";
+document.body.appendChild(toggle);
+
+if(localStorage.getItem("theme")==="dark"){
+  document.body.classList.add("dark");
+  toggle.innerText="☀️";
+}
+
+toggle.onclick = ()=>{
+  document.body.classList.toggle("dark");
+  const isDark=document.body.classList.contains("dark");
+  toggle.innerText=isDark?"☀️":"🌙";
+  localStorage.setItem("theme",isDark?"dark":"light");
+};
 </script>
 
 </body>
