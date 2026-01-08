@@ -1,87 +1,143 @@
-// ---------- PAGE CHECK ----------
 const menuBox = document.getElementById("menu-box");
-const cartBox = document.querySelector(".cart-box");
+const plusButton = document.getElementById("plus-button");
+const cartItemsBox = document.getElementById("cart-items");
+const cartTotalBox = document.getElementById("cart-total");
 
-// ---------- LOAD MENU ITEMS ----------
-function loadMenu() {
-  const items = JSON.parse(localStorage.getItem("menuItems")) || [];
+// MENU & CART DATA
+let menuItems = JSON.parse(localStorage.getItem("menuItems")) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // Remove old items (keep + button)
-  document.querySelectorAll(".item:not(#plus-button)").forEach(e => e.remove());
+// ================= RENDER MENU =================
+function renderMenu(){
+  menuBox.innerHTML = "";
+  menuBox.appendChild(plusButton);
 
-  items.forEach((data, index) => {
-    const item = document.createElement("div");
-    item.className = "item";
+  menuItems.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "item";
 
-    item.innerHTML = `
-      <span class="item-name">${data.name} ₹${data.price}</span>
+    card.innerHTML = `
+      <div class="item-name">${item.name}</div>
+      <div>₹${item.price}</div>
+
       <div class="buttons">
         <button class="add">Add</button>
-        <button class="qty-btn">+</button>
+        <button class="delete-btn">🗑️</button>
       </div>
     `;
 
-    item.querySelector(".add").onclick = () => addToCart(data);
-    item.querySelector(".qty-btn").onclick = () => addToCart(data);
+    // ADD TO CART
+    card.querySelector(".add").addEventListener("click", () => {
+      addToCart(item);
+    });
 
-    menuBox.insertBefore(item, document.getElementById("plus-button"));
+    // DELETE MENU ITEM
+    card.querySelector(".delete-btn").addEventListener("click", () => {
+      if(confirm(`Delete ${item.name}?`)){
+        menuItems.splice(index, 1);
+        localStorage.setItem("menuItems", JSON.stringify(menuItems));
+        renderMenu();
+      }
+    });
+
+    menuBox.appendChild(card);
   });
 }
 
-// ---------- CART ----------
-let cart = [];
-
-function addToCart(item) {
+// ================= ADD TO CART =================
+function addToCart(item){
   const found = cart.find(c => c.name === item.name);
 
-  if (found) {
-    found.qty++;
+  if(found){
+    found.qty += 1;
   } else {
     cart.push({ ...item, qty: 1 });
   }
 
+  localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 }
 
-function renderCart() {
-  cartBox.innerHTML = `<div class="cart-title">Your Cart</div>`;
+// ================= RENDER CART =================
+function renderCart(){
+  cartItemsBox.innerHTML = "";
 
-  if (cart.length === 0) {
-    cartBox.innerHTML += `<div class="empty-cart">Cart is empty...</div>`;
+  if(cart.length === 0){
+    cartItemsBox.innerHTML = `<p class="empty-cart">Cart is empty...</p>`;
+    cartTotalBox.innerHTML = "";
     return;
   }
 
   let total = 0;
 
-  cart.forEach(item => {
+  cart.forEach((item, index) => {
     total += item.price * item.qty;
 
     const div = document.createElement("div");
-    div.style.marginBottom = "10px";
+    div.className = "cart-item";
+
     div.innerHTML = `
-      <strong>${item.name}</strong> x ${item.qty}
-      <span style="float:right">₹${item.price * item.qty}</span>
+      <div class="cart-info">
+        <strong>${item.name}</strong><br>
+        ₹${item.price} × ${item.qty}
+      </div>
+
+      <div class="cart-actions">
+        <button onclick="changeQty(${index}, -1)">−</button>
+        <button onclick="changeQty(${index}, 1)">+</button>
+        <button class="remove-btn" onclick="removeItem(${index})">✕</button>
+      </div>
     `;
-    cartBox.appendChild(div);
+
+    cartItemsBox.appendChild(div);
   });
 
-  cartBox.innerHTML += `
-    <hr>
-    <strong>Total: ₹${total}</strong>
-  `;
+  cartTotalBox.innerHTML = `Total: ₹${total}`;
 }
 
-// ---------- PLUS BUTTON ----------
-const plusBtn = document.getElementById("plus-button");
-if (plusBtn) {
-  plusBtn.onclick = () => {
-    window.location.href = "add.html";
-  };
+
+// ================= REMOVE FROM CART =================
+function removeItem(index){
+  cart.splice(index,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
 }
 
-// ---------- INIT ----------
-if (menuBox) loadMenu();
+// PLUS BUTTON
+plusButton.addEventListener("click", () => {
+  window.location.href = "add.html";
+});
+
+// INITIAL LOAD
+renderMenu();
+renderCart();
 
 
+const toggle = document.getElementById("themeToggle");
+
+// Load saved theme
+if(localStorage.getItem("theme") === "dark"){
+  document.body.classList.add("dark");
+  toggle.textContent = "☀️";
+}
+
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+  toggle.textContent = isDark ? "☀️" : "🌙";
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
 
 
+function goHome(){
+  window.location.href = "index.html";
+}
+
+function goMenu(){
+  window.location.href = "menu.html";
+}
+
+function goProfile(){
+  window.location.href = "profile.html";
+}
