@@ -18,24 +18,103 @@
     }
 
     .item-img{
-  width:100%;
-  height:110px;
-  object-fit:cover;
-  border-radius:12px;
-  margin-bottom:10px;
-  background:#ddd;
-}
+      width:100%;
+      height:110px;
+      object-fit:cover;
+      border-radius:12px;
+      margin-bottom:10px;
+      background:#ddd;
+    }
 
-
-    /* Search Bar */
-    .search-bar{
+    /* Navbar */
+    .navbar{
       width:100%;
       max-width:1250px;
-      height:65px;
-      background:#fff;
+      background:#ffffffaa;
+      backdrop-filter:blur(6px);
+      padding:15px 25px;
+      margin:0 auto 20px auto;
       border-radius:14px;
-      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
       box-shadow:0 4px 12px rgba(0,0,0,0.15);
+      position:relative;
+      z-index:1000;
+    }
+
+    .logo{
+      font-size:24px;
+      font-weight:700;
+      color:#2b2b2b;
+    }
+
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      position:relative;
+    }
+
+    /* Nav Links */
+    .nav-links{
+      list-style:none;
+      display:flex;
+      gap:25px;
+      font-size:16px;
+      font-weight:500;
+      color:#333;
+    }
+
+    .nav-links li{
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .nav-links li:hover{
+      color:#4f68ff;
+    }
+
+    /* Hamburger Menu */
+    .hamburger{
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      cursor:pointer;
+      z-index:1001;
+    }
+
+    .hamburger span{
+      width:26px;
+      height:3px;
+      background:#333;
+      border-radius:5px;
+      transition:all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1){
+      transform:rotate(45deg) translate(5px,5px);
+    }
+    .hamburger.active span:nth-child(2){
+      opacity:0;
+    }
+    .hamburger.active span:nth-child(3){
+      transform:rotate(-45deg) translate(6px,-6px);
+    }
+
+    /* Theme toggle */
+    .theme-toggle{
+      border:none;
+      background:#eef1ff;
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:18px;
+      transition:0.3s;
+    }
+
+    .theme-toggle:hover{
+      background:#dce0ff;
     }
 
     /* Main Layout */
@@ -44,22 +123,23 @@
       margin-top:30px;
       gap:25px;
       width:100%;
+      max-width:1250px;
+      margin:30px auto 0;
     }
 
     /* Menu Section */
     .menu-box{
       flex:2;
-      background:#fff;
-      padding:25px;
+      background:transparent;
+      padding:0;
       border-radius:20px;
-      box-shadow:0 4px 16px rgba(0,0,0,0.1);
       display:grid;
       grid-template-columns:repeat(2, 1fr);
       gap:25px;
     }
 
     .item{
-      background:#eef1ff;
+      background:#ffffff;
       height:140px;
       border-radius:16px;
       padding:16px;
@@ -67,7 +147,7 @@
       flex-direction:column;
       justify-content:space-between;
       transition:0.3s;
-      border:1px solid #dce0ff;
+      box-shadow:0 10px 25px rgba(0,0,0,0.12);
     }
 
     .item:hover{
@@ -79,6 +159,7 @@
       font-size:18px;
       font-weight:600;
       color:#333;
+      margin-bottom:8px;
     }
 
     .buttons{
@@ -91,8 +172,8 @@
       background:#4f68ff;
       color:#fff;
       border:none;
-      padding:8px 14px;
-      border-radius:10px;
+      padding:10px 16px;
+      border-radius:12px;
       cursor:pointer;
       font-weight:600;
       font-size:14px;
@@ -129,6 +210,9 @@
       border-radius:20px;
       padding:25px;
       box-shadow:0 4px 16px rgba(0,0,0,0.1);
+      position:sticky;
+      top:20px;
+      height:fit-content;
     }
 
     .cart-title{
@@ -144,374 +228,504 @@
       margin-top:10px;
     }
 
-      /* Navbar */
-    .navbar{
-      width:100%;
-      max-width:1250px;
-      background:#ffffffaa;
-      backdrop-filter:blur(6px);
-      padding:15px 25px;
-      margin:0 auto 20px auto;
-      border-radius:14px;
+    .cart-item{
       display:flex;
       justify-content:space-between;
       align-items:center;
-      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+      background:#eef1ff;
+      padding:14px 16px;
+      border-radius:12px;
+      box-shadow:0 6px 15px rgba(0,0,0,0.1);
+      margin-bottom:12px;
+      transition:0.3s;
     }
 
-    .logo{
-      font-size:24px;
-      font-weight:700;
-      color:#2b2b2b;
+    .cart-item:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 20px rgba(0,0,0,0.15);
     }
 
-    .nav-links{
-      list-style:none;
-      display:flex;
-      gap:25px;
+    .cart-info{
       font-size:16px;
       font-weight:500;
       color:#333;
-      cursor:pointer;
     }
 
-    .nav-links li:hover{
-      color:#4f68ff;
+    .cart-actions button{
+      margin-left:6px;
+      padding:6px 10px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:14px;
+      font-weight:600;
+      transition:0.2s;
+    }
+
+    .cart-actions button:hover{
+      opacity:0.85;
+    }
+
+    .cart-actions .remove-btn{
+      background:#ff4f4f;
+      color:#fff;
+    }
+
+    .cart-actions .qty-btn{
+      background:#6c8cff;
+      color:#fff;
     }
 
     .delete-btn{
-  background:#ff4f4f;
-  color:#fff;
-  border:none;
-  padding:6px 10px;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:14px;
-  font-weight:600;
-  transition:0.2s;
-}
-/* ================= CART ITEMS ================= */
-.cart-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#eef1ff;
-  padding:14px 16px;
-  border-radius:12px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.1);
-  margin-bottom:12px;
-  transition:0.3s;
-}
+      background:#ff4f4f;
+      color:#fff;
+      border:none;
+      padding:6px 10px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:14px;
+      font-weight:600;
+      transition:0.2s;
+    }
 
-.cart-item:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 20px rgba(0,0,0,0.15);
-}
+    .delete-btn:hover{
+      background:#d13b3b;
+    }
 
-.cart-info{
-  font-size:16px;
-  font-weight:500;
-  color:#333;
-}
+    /* Plus Button */
+    #plus-button {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:40px;
+      font-weight:700;
+      cursor:pointer;
+      border:none;
+      border-radius:16px;
+      background:#dfe6ff;
+      color:#4f68ff;
+      height:140px;
+      transition:0.3s;
+      box-shadow:0 6px 15px rgba(0,0,0,0.1);
+    }
 
-.cart-actions button{
-  margin-left:6px;
-  padding:6px 10px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:14px;
-  font-weight:600;
-  transition:0.2s;
-}
+    #plus-button:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 20px rgba(0,0,0,0.15);
+      background:#c5d1ff;
+    }
 
-.cart-actions button:hover{
-  opacity:0.85;
-}
+    /* Dark Mode */
+    body.dark{
+      background:linear-gradient(135deg,#0f0f14,#1a1a26);
+      color:#e6e6f0;
+    }
 
-.cart-actions .remove-btn{
-  background:#ff4f4f;
-  color:#fff;
+    /* Professional dark theme for cart items */
+body.dark .cart-item {
+    background: #0f0f14; /* Very dark background */
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.05); /* subtle light shadow */
+    color: #e6e6f0; /* ensure text is visible */
 }
 
-.cart-actions .qty-btn{
-  background:#6c8cff;
-  color:#fff;
+body.dark .cart-item .cart-info strong {
+    color: #ffffff; /* bold text white */
 }
 
-
-.delete-btn:hover{
-  background:#d13b3b;
+body.dark .cart-actions button {
+    background: #2a2a3d; /* buttons darker shade */
+    color: #ffffff;
 }
 
-/* 🌙 Theme Toggle Button */
-.theme-toggle{
-  border:none;
-  background:#eef1ff;
-  padding:8px 12px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:18px;
-  transition:0.3s;
-}
-
-.theme-toggle:hover{
-  background:#dce0ff;
-}
-
-/* ================= PROFESSIONAL DARK MODE ================= */
-
-body.dark .cart-item{
-  background:#1f1f2e;
-  color:#dcdcf0;
-  box-shadow:0 8px 20px rgba(0,0,0,0.6);
-}
-
-body.dark .cart-info{color:#ffffff;}
-body.dark .cart-actions .qty-btn{background:#6c8cff;color:#fff;}
-body.dark .cart-actions .remove-btn{background:#ff5c5c;}
-
-/* ================= HOME REFINEMENT ================= */
-
-/* Main Layout */
-.main{
-  max-width:1250px;
-  margin:auto;
-}
-
-/* Menu Section */
-.menu-box{
-  background:transparent;
-  box-shadow:none;
-}
-
-/* Food Card */
-.item{
-  background:#ffffff;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.12);
-}
-
-.item-name{
-  font-size:18px;
-  font-weight:600;
-  margin-bottom:8px;
-}
-
-/* Add Button */
-.add{
-  padding:10px 16px;
-  border-radius:12px;
-}
-
-/* Cart Box */
-.cart-box{
-  position:sticky;  
-  top:20px;
-  height:fit-content;
-}
-
-body.dark{
-  background:linear-gradient(135deg,#0f0f14,#1a1a26);
-  color:#e6e6f0;
-}
-
-/* Navbar */
-body.dark .navbar{
-  background:#161622;
-  box-shadow:0 6px 18px rgba(0,0,0,0.6);
-}
-
-body.dark .logo{
-  color:#ffffff;
-}
-
-body.dark .nav-links li{
-  color:#cfcfe6;
-}
-
-body.dark .nav-links li:hover{
-  color:#8fa2ff;
-}
-
-/* ================= PLUS BUTTON ================= */
-#plus-button {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:40px;
-  font-weight:700;
-  cursor:pointer;
-  border:none;
-  border-radius:16px;
-  background:#dfe6ff;
-  color:#4f68ff;
-  height:140px;
-  transition:0.3s;
-  box-shadow:0 6px 15px rgba(0,0,0,0.1);
-}
-
-#plus-button:hover{
-  transform:translateY(-3px);
-  box-shadow:0 10px 20px rgba(0,0,0,0.15);
-  background:#c5d1ff;
-}
-
-/* ================= DARK MODE ================= */
-body.dark #plus-button {
-  background:#2a2a3d;
-  color:#6c8cff;
-  box-shadow:0 8px 20px rgba(0,0,0,0.6);
-}
-
-body.dark #plus-button:hover{
-  background:#3b3b57;
-  box-shadow:0 12px 28px rgba(0,0,0,0.8);
+body.dark .cart-actions button:hover {
+    background: #3b3b57;
 }
 
 
-/* Cards / Containers */
-body.dark .card,
-body.dark .menu-box,
-body.dark .cart-box,
-body.dark .container,
-body.dark .main{
-  background:#161622;
-  box-shadow:0 10px 30px rgba(0,0,0,0.7);
-}
+    body.dark .navbar{
+      background:#161622;
+      box-shadow:0 6px 18px rgba(0,0,0,0.6);
+    }
 
-body.dark .item-img{
-  filter:brightness(0.9);
-}
+    body.dark .logo{
+      color:#ffffff;
+    }
+    /* body.dark .cart-items{
+      background-color: #1a1a26;
+    } */
 
+    body.dark .nav-links li{
+      color:#cfcfe6;
+    }
 
-/* Items / Inner Cards */
-body.dark .item,
-body.dark .cart-item{
-  border: #0f0f14;
-  background:#1f1f2e;
-  color:#dcdcf0;
-  box-shadow:0 8px 20px rgba(0,0,0,0.6);
-}
-.item-name {
-  color: white;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-body.dark .item:hover{
-  transform:translateY(-4px);
-}
+    body.dark .nav-links li:hover{
+      color:#8fa2ff;
+    }
 
-/* Headings */
-body.dark h1,
-body.dark h2,
-body.dark h3,
-body.dark .cart-title{
-  color:#ffffff;
-}
+    body.dark .hamburger span{
+      background:#ffffff;
+    }
 
-/* Text */
-body.dark p,
-body.dark label,
-body.dark .cart-info{
-  color:#cfcfe6;
-}
+    body.dark .theme-toggle{
+      background:#1f1f2e;
+      color:#ffffff;
+    }
 
-/* Inputs */
-body.dark input{
-  background:#2a2a3d;
-  color:#ffffff;
-  border:none;
-}
+    body.dark .theme-toggle:hover{
+      background:#2a2a3d;
+    }
 
-body.dark input::placeholder{
-  color:#9fa0c9;
-}
+    body.dark .cart-box,
+    body.dark .menu-box{
+      background:#161622;
+      box-shadow:0 10px 30px rgba(0,0,0,0.7);
+    }
 
-/* Buttons */
-body.dark button,
-body.dark .add,
-body.dark .qty-btn{
-  background:#6c8cff;
-  color:#fff;
-}
+    body.dark .item{
+      background:#1f1f2e;
+      color:#dcdcf0;
+      box-shadow:0 8px 20px rgba(0,0,0,0.6);
+    }
 
-body.dark button:hover,
-body.dark .add:hover,
-body.dark .qty-btn:hover{
-  background:#5570ff;
-}
+    body.dark .item-name{
+      
+      color: white;
+    }
 
-/* Delete / Remove */
-body.dark .delete-btn,
-body.dark .remove-btn{
-  background:#ff5c5c;
-}
+    body.dark .cart-title,
+    body.dark h1,h2,h3{
+      
+      color:#ffffff;
+    }
 
-/* Links */
-body.dark .back{
-  color:#bdbdd6;
-}
+    body.dark .cart-info{
+      color:#cfcfe6;
+    }
 
-body.dark .back:hover{
-  color:#8fa2ff;
-}
+    body.dark .add,
+    body.dark .qty-btn{
+      background:#6c8cff;
+      color:#fff;
+    }
 
-/* Theme Toggle */
-body.dark .theme-toggle{
-  background:#1f1f2e;
-  color:#ffffff;
-}
+    body.dark .add:hover,
+    body.dark .qty-btn:hover{
+      background:#5570ff;
+    }
 
-body.dark .theme-toggle:hover{
-  background:#2a2a3d;
-}
+    body.dark .delete-btn,
+    body.dark .remove-btn{
+      background:#ff5c5c;
+    }
 
+    body.dark #plus-button{
+      background:#2a2a3d;
+      color:#6c8cff;
+      box-shadow:0 8px 20px rgba(0,0,0,0.6);
+    }
 
+    body.dark #plus-button:hover{
+      background:#3b3b57;
+      box-shadow:0 12px 28px rgba(0,0,0,0.8);
+    }
 
-</style>
+    /* Mobile Responsive */
+    @media (max-width: 768px){
+      body{
+        padding:15px;
+      }
+
+      .navbar{
+        padding:12px 18px;
+      }
+
+      .logo{
+        font-size:20px;
+      }
+
+      .hamburger{
+        display:flex;
+      }
+
+      .nav-links{
+        position:absolute;
+        top:70px;
+        right:20px;
+        background:#ffffff;
+        flex-direction:column;
+        width:200px;
+        padding:18px;
+        border-radius:16px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.2);
+        display:none;
+        animation:slideIn 0.3s ease;
+      }
+
+      .nav-links.show{
+        display:flex;
+      }
+
+      .nav-links li{
+        padding:10px 0;
+      }
+
+      body.dark .nav-links{
+        background:#161622;
+      }
+
+      .main{
+        flex-direction:column;
+        gap:20px;
+      }
+
+      .menu-box{
+        grid-template-columns:1fr;
+        gap:15px;
+      }
+
+      .cart-box{
+        position:static;
+        order:-1;
+      }
+
+      .item{
+        height:auto;
+        min-height:140px;
+      }
+
+      .item-name{
+        font-size:16px;
+      }
+
+      .cart-title{
+        font-size:20px;
+      }
+
+      #plus-button{
+        font-size:35px;
+      }
+    }
+
+    @keyframes slideIn{
+      from{
+        opacity:0;
+        transform:translateY(-10px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
 
   <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">FoodZone</div>
-    <ul class="nav-links">
-  <li onclick="goHome()">Home</li>
-  <li onclick="goMenu()">Menu</li>
-  <li onclick="goProfile()">Profile</li>
-</ul>
 
-    <button class="theme-toggle" id="themeToggle">🌙</button>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li onclick="goHome()">Home</li>
+        <li onclick="goMenu()">Menu</li>
+        <li onclick="goProfile()">Profile</li>
+      </ul>
 
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   </nav>
 
-
-  <!-- <div class="search-bar"></div> -->
-
   <div class="main">
-
-    <!-- Menu Items (JS will generate cards) -->
+    <!-- Menu Items -->
     <div class="menu-box" id="menu-box">
-      <!-- Plus Button Card (kept as requested) -->
-      <button id="plus-button" class="item" 
-style="display:flex;align-items:center;justify-content:center;background:#dfe6ff;font-size:40px;font-weight:700;cursor:pointer;border:none;outline:none;">
-  +
-</button>
-
-
+      <button id="plus-button" class="item">+</button>
     </div>
 
     <!-- Cart Section -->
     <div class="cart-box">
-  <div class="cart-title">Your Cart</div>
-  <div id="cart-items"></div>
-  <div id="cart-total" style="margin-top:15px;font-weight:600;"></div>
-</div>
-
+      <div class="cart-title">Your Cart</div>
+      <div id="cart-items"></div>
+      <div id="cart-total" style="margin-top:15px;font-weight:600;"></div>
+    </div>
   </div>
-<script src="restaurant.js"></script>
+
+  <script>
+    // Hamburger Menu Toggle
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+
+    hamburger.onclick = (e) => {
+      e.stopPropagation(); // Prevent document click
+      hamburger.classList.toggle("active");
+      navLinks.classList.toggle("show");
+    };
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("show");
+      }
+    });
+
+    // Navigation Functions
+    function goHome(){window.location.href="index.html";}
+    function goMenu(){window.location.href="menu.html";}
+    function goProfile(){window.location.href="profile.html";}
+
+   const menuBox = document.getElementById("menu-box");
+const plusButton = document.getElementById("plus-button");
+const cartItemsBox = document.getElementById("cart-items");
+const cartTotalBox = document.getElementById("cart-total");
+
+// MENU & CART DATA
+let menuItems = JSON.parse(localStorage.getItem("menuItems")) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// ================= RENDER MENU =================
+function renderMenu(){
+  menuBox.innerHTML = "";
+  menuBox.appendChild(plusButton);
+
+  menuItems.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "item";
+
+    card.innerHTML = `
+      <div class="item-name">${item.name}</div>
+      <div>₹${item.price}</div>
+
+      <div class="buttons">
+        <button class="add">Add</button>
+        <button class="delete-btn">🗑️</button>
+      </div>
+    `;
+
+    // ADD TO CART
+    card.querySelector(".add").addEventListener("click", () => {
+      addToCart(item);
+    });
+
+    // DELETE MENU ITEM
+    card.querySelector(".delete-btn").addEventListener("click", () => {
+      if(confirm(`Delete ${item.name}?`)){
+        menuItems.splice(index, 1);
+        localStorage.setItem("menuItems", JSON.stringify(menuItems));
+        renderMenu();
+      }
+    });
+
+    menuBox.appendChild(card);
+  });
+}
+
+// ================= ADD TO CART =================
+function addToCart(item){
+  const found = cart.find(c => c.name === item.name);
+
+  if(found){
+    found.qty += 1;
+  } else {
+    cart.push({ ...item, qty: 1 });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+// ================= RENDER CART =================
+function renderCart(){
+  cartItemsBox.innerHTML = "";
+
+  if(cart.length === 0){
+    cartItemsBox.innerHTML = `<p class="empty-cart">Cart is empty...</p>`;
+    cartTotalBox.innerHTML = "";
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
+
+    const div = document.createElement("div");
+    div.className = "cart-item";
+
+    div.innerHTML = `
+      <div class="cart-info">
+        <strong>${item.name}</strong><br>
+        ₹${item.price} × ${item.qty}
+      </div>
+
+      <div class="cart-actions">
+        <button onclick="changeQty(${index}, -1)">−</button>
+        <button onclick="changeQty(${index}, 1)">+</button>
+        <button class="remove-btn" onclick="removeItem(${index})">✕</button>
+      </div>
+    `;
+
+    cartItemsBox.appendChild(div);
+  });
+
+  cartTotalBox.innerHTML = `Total: ₹${total}`;
+}
+
+
+// ================= REMOVE FROM CART =================
+function removeItem(index){
+  cart.splice(index,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+// PLUS BUTTON
+plusButton.addEventListener("click", () => {
+  window.location.href = "add.html";
+});
+
+// INITIAL LOAD
+renderMenu();
+renderCart();
+
+
+const toggle = document.getElementById("themeToggle");
+
+// Load saved theme
+if(localStorage.getItem("theme") === "dark"){
+  document.body.classList.add("dark");
+  toggle.textContent = "☀️";
+}
+
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+  toggle.textContent = isDark ? "☀️" : "🌙";
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
+
+
+function goHome(){
+  window.location.href = "index.html";
+}
+
+function goMenu(){
+  window.location.href = "menu.html";
+}
+
+function goProfile(){
+  window.location.href = "profile.html";
+}
+
+
+
+    
+  </script>
 </body>
 </html>
